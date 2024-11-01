@@ -27,3 +27,27 @@ app/fabric.properties
 
 # Profiling outputs (Heap dumps etc.)
 /captures
+
+# Xcode
+build/
+DerivedData/
+*.xcworkspace
+*.xcuserstate
+*.xcodeproj/project.xcworkspace/xcuserdata/
+
+# Swift Package Manager
+.build/
+Packages/
+.swiftpm/xcode/package.xcworkspace/
+
+# Cocoapods
+Pods/
+Podfile.lock
+
+# Carthage
+Carthage/Build/
+
+# User-specific files
+*.swp
+*.lock
+*.DS_Store
