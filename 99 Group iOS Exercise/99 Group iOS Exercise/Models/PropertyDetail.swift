@@ -5,10 +5,6 @@
 //  Created by Ezra Arya Wijaya on 01/11/24.
 //
 
-struct PropertyDetailResponse: Codable {
-    let propertyDetail: PropertyDetail
-}
-
 struct PropertyDetail: Codable, Identifiable {
     let address: DetailAddress
     let attributes: Attributes
@@ -16,12 +12,12 @@ struct PropertyDetail: Codable, Identifiable {
     let id: Int
     let photo: String
     let projectName: String
-    let projectDetails: [projectDetails]
+    let propertyDetails: [propertyDetails]
     
     enum CodingKeys: String, CodingKey {
         case address, attributes, description, id, photo
         case projectName = "project_name"
-        case projectDetails = "project_details"
+        case propertyDetails = "property_details"
     }
 }
 
@@ -42,7 +38,7 @@ struct MapCoordinates: Codable {
 }
 
 
-struct projectDetails: Codable {
+struct propertyDetails: Codable {
     let label: String
     let text: String
 }

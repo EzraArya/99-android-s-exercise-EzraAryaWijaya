@@ -6,10 +6,6 @@
 //
 import Foundation
 
-struct PropertiesResponse: Codable {
-    let property: [Property]
-}
-
 struct Property: Codable, Identifiable {
     let address: Address
     let attributes: Attributes
