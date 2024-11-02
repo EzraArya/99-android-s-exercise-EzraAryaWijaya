@@ -8,6 +8,8 @@ import Foundation
 import SwiftUICore
 
 extension Color {
-    static let primary = Color("Primary")
-    static let secondary = Color("Secondary")
+    static let primaryColor = Color("DarkBlue")
+    static let secondaryColor = Color("LightGrey")
+    static let shadowColor = Color("ShadowColor")
+    static let buttonColor = Color("ButtonColor")
 }
