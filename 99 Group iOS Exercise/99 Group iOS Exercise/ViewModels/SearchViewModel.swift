@@ -18,12 +18,10 @@ class SearchViewModel: ObservableObject {
     }
     
     func fetchProperties() async {
-        Task {
-            do {
-                properties = try await apiManager.fetchPropertyList()
-            } catch {
-                print("Error fetching properties: \(error)")
-            }
+        do {
+            properties = try await apiManager.fetchPropertyList()
+        } catch {
+            print("Error fetching properties: \(error)")
         }
     }
 }

@@ -12,18 +12,18 @@ class DetailViewModel: ObservableObject {
     let id: Int
     
     private let apiManager: APIManager
-       
+    
     init(id: Int, apiManager: APIManager = .shared) {
-         self.id = id
-         self.apiManager = apiManager
+        self.id = id
+        self.apiManager = apiManager
     }
     
     func fetchDetails() async {
-        Task {
-            do {
-                property = try await apiManager.fetchPropertyDetail(id: id)
-            } catch {
-                print("Error fetching properties: \(error)")
-            }
+        do {
+            property = try await apiManager.fetchPropertyDetail(id: id)
+        } catch {
+            print("Error fetching properties: \(error)")
         }
-    }}
+        
+    }
+}
