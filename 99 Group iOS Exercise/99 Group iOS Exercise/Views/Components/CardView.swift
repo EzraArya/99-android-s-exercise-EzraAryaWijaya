@@ -10,6 +10,7 @@ import SwiftUI
 struct CardView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
+            //Card Image
             AsyncImage(url: URL(string: "https://picsum.photos/id/10/450/300")) { phase in
                 if let image = phase.image {
                     image
@@ -29,28 +30,27 @@ struct CardView: View {
             }
             .frame(maxWidth: .infinity, alignment: .center)
             
+            //Card Detail
             VStack(alignment: .leading,spacing: 12) {
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("Title")
+                    Text("Parkview Apartments")
                         .font(.system(size: 16, weight: .semibold))
-                        .foregroundStyle(.primary)
+                        .foregroundStyle(Color.primaryColor)
                     VStack(alignment: .leading, spacing: 2) {
-                        Text("StreetName · District")
-                                .font(.system(size: 12, weight: .medium))
-                                .foregroundStyle(.secondary)
-                        Text("Category · Created_at · Tenure")
-                                .font(.system(size: 12, weight: .medium))
-                                .foregroundStyle(.secondary)
+                        Text("12 Meyappa Chettiar Rd · D13")
+                        Text("Exec Condo · 2020 · 99 yrs")
                     }
+                    .font(.system(size: 12, weight: .medium))
+                    .foregroundStyle(Color.secondaryColor)
                 }
+                
                 VStack(alignment: .leading, spacing: 12) {
-                    Text("Bed · Bath · area_size")
+                    Text("3 Beds  ·  2 Baths  ·  2,561 sqft")
                         .font(.system(size: 12, weight: .medium))
-                        .foregroundStyle(.primary)
-                    Text("Price /Mo")
+                    Text("$5,700/mo")
                         .font(.system(size: 16, weight: .bold))
-                        .foregroundStyle(.primary)
                 }
+                .foregroundStyle(Color.primaryColor)
             }
             .frame(maxWidth:.infinity, alignment: .leading)
         }
@@ -59,12 +59,11 @@ struct CardView: View {
         .background(RoundedRectangle(cornerRadius: 4)
                         .fill(Color(.systemBackground)))
         .clipShape(RoundedRectangle(cornerRadius: 4))
-        .shadow(color: .black.opacity(0.15), radius: 5, x: 0, y: 4)
+        .shadow(color: .shadowColor.opacity(0.15), radius: 5, x: 0, y: 4)
         .overlay(
             RoundedRectangle(cornerRadius: 4)
                 .stroke(Color.primary.opacity(0.1), lineWidth: 1)
         )
-        .padding(12)
     }
 }
 
