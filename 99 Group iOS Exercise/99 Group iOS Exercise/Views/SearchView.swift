@@ -8,17 +8,23 @@
 import SwiftUI
 
 struct SearchView: View {
-    var ListTing = ["Yes", "No", "Maybe"]
     var body: some View {
         VStack {
-            List (ListTing, id: \.self) { item in
-                Text(item)
+            List {
+                ForEach(0..<10, id: \.self) { index in
+                    CardView()
+                        .listRowSeparator(.hidden)
+                        .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+                        .padding(.horizontal, 12)
+                }
             }
+            .listStyle(PlainListStyle())
+            .navigationTitle("Search Results")
+            .navigationBarTitleDisplayMode(.inline)
         }
-        .navigationTitle("Search Result")
     }
 }
 
 #Preview {
-    SearchView()
+    ContentView()
 }
