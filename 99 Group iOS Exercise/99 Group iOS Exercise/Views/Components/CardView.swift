@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct CardView: View {
+    let property: Property
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             //Card Image
-            AsyncImage(url: URL(string: "https://picsum.photos/id/10/450/300")) { phase in
+            AsyncImage(url: URL(string: property.photo)) { phase in
                 if let image = phase.image {
                     image
                         .resizable()
@@ -33,21 +34,21 @@ struct CardView: View {
             //Card Detail
             VStack(alignment: .leading,spacing: 12) {
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("Parkview Apartments")
+                    Text(property.projectName)
                         .font(.system(size: 16, weight: .semibold))
                         .foregroundStyle(Color.primaryColor)
                     VStack(alignment: .leading, spacing: 2) {
-                        Text("12 Meyappa Chettiar Rd · D13")
-                        Text("Exec Condo · 2020 · 99 yrs")
+                        Text("\(property.address.streetName) · \(property.address.district)")
+                        Text("\(property.category) · \(property.completedAt) · \(property.tenure) yrs")
                     }
                     .font(.system(size: 12, weight: .medium))
                     .foregroundStyle(Color.secondaryColor)
                 }
                 
                 VStack(alignment: .leading, spacing: 12) {
-                    Text("3 Beds  ·  2 Baths  ·  2,561 sqft")
+                    Text("\(property.attributes.bedrooms) Beds  ·  \(property.attributes.bathrooms) Baths  ·  \(property.attributes.areaSize) sqft")
                         .font(.system(size: 12, weight: .medium))
-                    Text("$5,700/mo")
+                    Text("$\(property.attributes.price)/mo")
                         .font(.system(size: 16, weight: .bold))
                 }
                 .foregroundStyle(Color.primaryColor)
@@ -68,5 +69,6 @@ struct CardView: View {
 }
 
 #Preview {
-    CardView()
+    let property = Property(address: Address(district: "12 Meyappa Chettiar Rd", streetName: "D13"), attributes: Attributes(areaSize: 2561, bathrooms: 3, bedrooms: 2, price: 2561), category: "Condo", completedAt: "2020", id: 0, photo: "https://picsum.photos/id/10/450/300", projectName: "Parkview Apartments", tenure: 99)
+    CardView(property: property)
 }
