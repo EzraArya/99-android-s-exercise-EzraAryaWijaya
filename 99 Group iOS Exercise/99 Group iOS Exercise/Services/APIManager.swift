@@ -7,7 +7,12 @@
 
 import Foundation
 
-class APIManager {
+protocol APIManagerProtocol {
+    func fetchPropertyList() async throws -> [Property]
+    func fetchPropertyDetail(id: Int) async throws -> PropertyDetail
+}
+
+class APIManager: APIManagerProtocol {
     static let shared = APIManager()
     
     private init() {}
