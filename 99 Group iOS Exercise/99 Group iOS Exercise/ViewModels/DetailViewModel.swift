@@ -5,17 +5,17 @@
 //  Created by Ezra Arya Wijaya on 02/11/24.
 //
 import Foundation
+import Factory
 
 @MainActor
 class DetailViewModel: ObservableObject {
     @Published var property: PropertyDetail?
     let id: Int
     
-    private let apiManager: APIManager
+    @Injected(\.apiManager) private var apiManager
     
-    init(id: Int, apiManager: APIManager = .shared) {
+    init(id: Int) {
         self.id = id
-        self.apiManager = apiManager
     }
     
     func fetchDetails() async {

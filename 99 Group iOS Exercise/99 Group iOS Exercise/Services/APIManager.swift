@@ -13,9 +13,6 @@ protocol APIManagerProtocol {
 }
 
 class APIManager: APIManagerProtocol {
-    static let shared = APIManager()
-    
-    private init() {}
     private let baseURL = URL(string: "https://ninetyninedotco-b7299.asia-southeast1.firebasedatabase.app/")!
     private let decoder = JSONDecoder()
     

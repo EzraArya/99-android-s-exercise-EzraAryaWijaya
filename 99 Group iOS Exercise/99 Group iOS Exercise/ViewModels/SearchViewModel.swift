@@ -4,18 +4,14 @@
 //
 //  Created by Ezra Arya Wijaya on 02/11/24.
 //
-
 import Foundation
+import Factory
 
 @MainActor
 class SearchViewModel: ObservableObject {
     @Published private(set) var properties: [Property] = []
     
-    private let apiManager: APIManager
-       
-    init(apiManager: APIManager = .shared) {
-        self.apiManager = apiManager
-    }
+    @Injected(\.apiManager) private var apiManager
     
     func fetchProperties() async {
         do {
