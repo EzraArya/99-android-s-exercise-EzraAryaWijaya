@@ -11,11 +11,16 @@ import Factory
 class DetailViewModel: ObservableObject {
     @Published var property: PropertyDetail?
     let id: Int
+    let lat: Double
+    let lng: Double
     
     @Injected(\.apiManager) private var apiManager
+    @Injected(\.mapsManager) private var mapsManager
     
-    init(id: Int) {
+    init(id: Int, lat: Double = 0, lng: Double = 0) {
         self.id = id
+        self.lat = lat
+        self.lng = lng
     }
     
     func fetchDetails() async {
@@ -24,6 +29,11 @@ class DetailViewModel: ObservableObject {
         } catch {
             print("Error fetching properties: \(error)")
         }
-        
+    }
+    
+    func openMap() {
+        guard let property = property else { return }
+
+        mapsManager.openInGoogleMaps(latitude: property.address.mapCoordinates.lat, longitude: property.address.mapCoordinates.lng)
     }
 }
