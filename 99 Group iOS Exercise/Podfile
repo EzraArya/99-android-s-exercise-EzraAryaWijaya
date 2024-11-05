@@ -9,3 +9,12 @@ target '99 Group iOS Exercise' do
 	pod "Factory"
 
 end
+
+target '99 Group iOS ExerciseTests' do 
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for 99 Group iOS Exercise
+	pod "Factory"
+
+end

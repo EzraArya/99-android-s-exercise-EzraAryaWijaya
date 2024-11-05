@@ -57,13 +57,15 @@ struct DetailView: View {
                             }
                             .font(.system(size: 14, weight: .light))
                             
-                            HStack(spacing: 1.5) {
-                                Image(systemName: "location.circle.fill")
-                                    .font(.system(size: 16))
-                                Text("View on Map")
-                                    .font(.system(size: 14, weight: .semibold))
+                            Button(action: viewModel.openMap) {
+                                HStack(spacing: 1.5) {
+                                    Image(systemName: "location.circle.fill")
+                                        .font(.system(size: 16))
+                                    Text("View on Map")
+                                        .font(.system(size: 14, weight: .semibold))
+                                }
+                                .foregroundStyle(Color.buttonColor)
                             }
-                            .foregroundStyle(Color.buttonColor)
                         }
                         .foregroundStyle(Color.primaryColor)
 
