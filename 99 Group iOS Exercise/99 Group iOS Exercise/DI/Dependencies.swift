@@ -12,4 +12,9 @@ extension Container {
         self { APIManager() }
             .singleton
     }
+    
+    var mapsManager: Factory<MapsManagerProtocol> {
+        self { MapsManager() }
+            .singleton
+    }
 }
