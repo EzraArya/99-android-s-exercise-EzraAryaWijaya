@@ -18,6 +18,7 @@ class SearchViewModel: ObservableObject {
             properties = try await apiManager.fetchPropertyList()
         } catch {
             print("Error fetching properties: \(error)")
+            
         }
     }
 }
