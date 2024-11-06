@@ -6,30 +6,101 @@
 //
 
 import XCTest
+@testable import _9_Group_iOS_Exercise
+import Factory
 
+@MainActor
 final class DetailViewModelTest: XCTestCase {
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    private var sut: DetailViewModel!
+    
+    override func setUp() {
+        super.setUp()
+        Container.shared.reset()
     }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    
+    override func tearDown() {
+        super.tearDown()
+        sut = nil
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    
+    // Test fetching properties details successfully
+    func testFetchPropertiesDetail() async {
+        // Given
+        let mockAPIManager = MockAPIManager()
+        
+        Container.shared.apiManager.register { mockAPIManager }
+        
+        sut = DetailViewModel(id: 1)
+        
+        // When
+        await sut.fetchDetails()
+        
+        // Then
+        XCTAssertEqual(sut.property?.projectName, "Mock Project Name", "Properties name should be Mock Project Name")
+        XCTAssertTrue(sut.property?.id == 1, "Properties id should be 1")
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    
+    // Test Valid Properties when opening map
+    func testOpenMapWithValidProperty() async throws {
+        // Given
+        let mockAPIManager = MockAPIManager()
+        let mockMapsManager = MockMapsManager()
+        
+        Container.shared.apiManager.register { mockAPIManager }
+        Container.shared.mapsManager.register { mockMapsManager }
+        
+        sut = DetailViewModel(id: 1)
+        
+        // When
+        await sut.fetchDetails()
+        sut.openMap()
+        
+        // Then
+        XCTAssertTrue(mockMapsManager.openInGoogleMapsCalled, "openInGoogleMaps should have been called")
+        XCTAssertEqual(mockMapsManager.lastLatitude, 1.0, "Incorrect latitude passed")
+        XCTAssertEqual(mockMapsManager.lastLongitude, 1.0, "Incorrect longitude passed")
     }
-
+    
+    // Test open map with no property
+    func testOpenMapWithNoProperty() async throws {
+        // Given
+        let mockAPIManager = MockAPIManager()
+        let mockMapsManager = MockMapsManager()
+        
+        Container.shared.apiManager.register { mockAPIManager }
+        Container.shared.mapsManager.register { mockMapsManager }
+        
+        sut = DetailViewModel(id: 1)
+        
+        sut.openMap()
+        
+        // Then
+        XCTAssertFalse(mockMapsManager.openInGoogleMapsCalled, "openInGoogleMaps should not have been called")
+        XCTAssertNil(mockMapsManager.lastLatitude, "Latitude should not have been set")
+        XCTAssertNil(mockMapsManager.lastLongitude, "Longitude should not have been set")
+    }
+    
+    // Test fetching properties and open map
+    func testFetchPropertyDetailAndOpenMap() async throws {
+        // Given
+        let mockAPIManager = MockAPIManager()
+        let mockMapsManager = MockMapsManager()
+        let expectedLat = 1.0
+        let expectedLng = 1.0
+        
+        Container.shared.apiManager.register { mockAPIManager }
+        Container.shared.mapsManager.register { mockMapsManager }
+        
+        let sut = DetailViewModel(id: 1)
+        
+        // When
+        await sut.fetchDetails()
+        sut.openMap()
+        
+        // Then
+        XCTAssertNotNil(sut.property, "Property should not be nil")
+        XCTAssertTrue(mockMapsManager.openInGoogleMapsCalled, "Map should have been opened")
+        XCTAssertEqual(mockMapsManager.lastLatitude, expectedLat, "Incorrect latitude")
+        XCTAssertEqual(mockMapsManager.lastLongitude, expectedLng, "Incorrect longitude")
+    }
 }

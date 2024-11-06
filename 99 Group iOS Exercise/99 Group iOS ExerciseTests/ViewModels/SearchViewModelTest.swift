@@ -6,30 +6,36 @@
 //
 
 import XCTest
+@testable import _9_Group_iOS_Exercise
+import Factory
 
-final class SearchViewModelTest: XCTestCase {
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+@MainActor
+class SearchViewModelTest: XCTestCase {
+    private var sut: SearchViewModel!
+    
+    override func setUp() {
+        super.setUp()
+        Container.shared.reset()
     }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    
+    override func tearDown() {
+        super.tearDown()
+        sut = nil
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    
+    // Test fetching properties successfully
+    func testFetchPropertiesSuccess() async {
+        // Given
+        let mockAPIManager = MockAPIManager()
+        Container.shared.apiManager.register { mockAPIManager }
+        sut = SearchViewModel()
+        
+        // When
+        await sut.fetchProperties()
+        
+        // Then
+        XCTAssertFalse(sut.properties.isEmpty, "Properties list should not be empty on success")
+        XCTAssertEqual(sut.properties.count, 1, "There should be 1 property in the list")
+        XCTAssertEqual(sut.properties.first?.projectName, "Mock Project Name", "The first property's projectName should match mock data")
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-
 }
