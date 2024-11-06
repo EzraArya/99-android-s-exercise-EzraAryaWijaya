@@ -1,7 +1,21 @@
+## Additional Instructions
+This Project uses Factory as the Dependency Injection Framework.
+Factory Documentation: [Factory](https://github.com/hmlongco/Factory/)
+
+### Installation
+Factory supports both Swift Package Manager (SPM) and CocoaPods.
+
+#### Using CocoaPods
+1. Navigate to project directory
+2. in terminal run:
+```bash
+pod install
+```
+3. Run the project using the generated `.xcworkspace`
+
 # Team 99 - Mobile Exercise (Android iOS)
 ​
 This is a fun exercise/challenge to help us assess the skill of candidates interested in joining the engineering team at 99.co. If you would like to attempt it, create your own fork and starting coding away!
-​
 
 ## Introduction
 You are going to complete 2 pages from scratch.
