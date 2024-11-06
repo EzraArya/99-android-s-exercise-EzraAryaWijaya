@@ -34,6 +34,6 @@ class DetailViewModel: ObservableObject {
     func openMap() {
         guard let property = property else { return }
 
-        mapsManager.openInGoogleMaps(latitude: property.address.mapCoordinates.lat, longitude: property.address.mapCoordinates.lng)
+        mapsManager.openMaps(latitude: property.address.mapCoordinates.lat, longitude: property.address.mapCoordinates.lng)
     }
 }

@@ -56,7 +56,7 @@ final class DetailViewModelTest: XCTestCase {
         sut.openMap()
         
         // Then
-        XCTAssertTrue(mockMapsManager.openInGoogleMapsCalled, "openInGoogleMaps should have been called")
+        XCTAssertTrue(mockMapsManager.openMapsCalled, "openMaps should have been called")
         XCTAssertEqual(mockMapsManager.lastLatitude, 1.0, "Incorrect latitude passed")
         XCTAssertEqual(mockMapsManager.lastLongitude, 1.0, "Incorrect longitude passed")
     }
@@ -75,7 +75,7 @@ final class DetailViewModelTest: XCTestCase {
         sut.openMap()
         
         // Then
-        XCTAssertFalse(mockMapsManager.openInGoogleMapsCalled, "openInGoogleMaps should not have been called")
+        XCTAssertFalse(mockMapsManager.openMapsCalled, "openMaps should not have been called")
         XCTAssertNil(mockMapsManager.lastLatitude, "Latitude should not have been set")
         XCTAssertNil(mockMapsManager.lastLongitude, "Longitude should not have been set")
     }
@@ -99,7 +99,7 @@ final class DetailViewModelTest: XCTestCase {
         
         // Then
         XCTAssertNotNil(sut.property, "Property should not be nil")
-        XCTAssertTrue(mockMapsManager.openInGoogleMapsCalled, "Map should have been opened")
+        XCTAssertTrue(mockMapsManager.openMapsCalled, "Map should have been opened")
         XCTAssertEqual(mockMapsManager.lastLatitude, expectedLat, "Incorrect latitude")
         XCTAssertEqual(mockMapsManager.lastLongitude, expectedLng, "Incorrect longitude")
     }

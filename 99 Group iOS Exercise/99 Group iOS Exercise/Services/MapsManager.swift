@@ -7,11 +7,12 @@
 
 import SwiftUI
 import Factory
-
+import MapKit
 protocol MapsManagerProtocol {
-    func openInGoogleMaps(latitude: Double, longitude: Double)
+    func openMaps(latitude: Double, longitude: Double)
+    func canOpenAppleMaps() -> Bool
     func canOpenGoogleMaps() -> Bool
-    }
+}
 
 class MapsManager: MapsManagerProtocol {
     private let application: UIApplication
@@ -19,27 +20,47 @@ class MapsManager: MapsManagerProtocol {
     init(application: UIApplication = .shared) {
         self.application = application
     }
+    
+    func openMaps(latitude: Double, longitude: Double) {
+        if canOpenAppleMaps() {
+            openInAppleMaps(latitude: latitude, longitude: longitude)
+        } else if canOpenGoogleMaps() {
+            openInGoogleMaps(latitude: latitude, longitude: longitude)
+        } else {
+            openInWebBrowser(latitude: latitude, longitude: longitude)
+        }
+    }
+    
+    func canOpenAppleMaps() -> Bool {
+        guard let url = URL(string: "maps://") else { return false }
+        return application.canOpenURL(url)
+    }
+    
+    func canOpenGoogleMaps() -> Bool {
+        guard let url = URL(string: "comgooglemaps://") else { return false }
+        return application.canOpenURL(url)
+    }
+    
+    private func openInAppleMaps(latitude: Double, longitude: Double) {
+        let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: coordinate))
+        mapItem.openInMaps(launchOptions: [MKLaunchOptionsMapCenterKey: coordinate])
+    }
 
-    func openInGoogleMaps(latitude: Double, longitude: Double) {
-         let googleMapsURL = "comgooglemaps://?center=\(latitude),\(longitude)&zoom=14"
+    private func openInGoogleMaps(latitude: Double, longitude: Double) {
+        let googleMapsURL = "comgooglemaps://?center=\(latitude),\(longitude)&zoom=14"
          
-         if canOpenGoogleMaps(),
-            let url = URL(string: googleMapsURL) {
-             application.open(url, options: [:], completionHandler: nil)
-         } else {
-             openInWebBrowser(latitude: latitude, longitude: longitude)
-         }
-     }
+        if let url = URL(string: googleMapsURL) {
+            application.open(url, options: [:], completionHandler: nil)
+        } else {
+            openInWebBrowser(latitude: latitude, longitude: longitude)
+        }
+    }
      
-     func canOpenGoogleMaps() -> Bool {
-         guard let url = URL(string: "comgooglemaps://") else { return false }
-         return application.canOpenURL(url)
-     }
-     
-     private func openInWebBrowser(latitude: Double, longitude: Double) {
-         let webURL = "https://www.google.com/maps/search/?api=1&query=\(latitude),\(longitude)"
-         if let url = URL(string: webURL) {
-             application.open(url, options: [:], completionHandler: nil)
-         }
-     }
+    private func openInWebBrowser(latitude: Double, longitude: Double) {
+        let webURL = "https://www.google.com/maps/search/?api=1&query=\(latitude),\(longitude)"
+        if let url = URL(string: webURL) {
+            application.open(url, options: [:], completionHandler: nil)
+        }
+    }
 }
