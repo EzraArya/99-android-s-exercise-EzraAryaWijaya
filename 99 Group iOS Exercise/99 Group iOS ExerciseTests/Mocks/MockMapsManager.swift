@@ -13,20 +13,10 @@ class MockMapsManager: MapsManagerProtocol {
     var openMapsCalled = false
     var lastLatitude: Double?
     var lastLongitude: Double?
-    var shouldAllowGoogleMaps = true
-    var shouldAllowAppleMaps = true
-
+    
     func openMaps(latitude: Double, longitude: Double) {
         openMapsCalled = true
         lastLatitude = latitude
         lastLongitude = longitude
-    }
-    
-    func canOpenAppleMaps() -> Bool {
-        return shouldAllowAppleMaps
-    }
-    
-    func canOpenGoogleMaps() -> Bool {
-        return shouldAllowGoogleMaps
     }
 }

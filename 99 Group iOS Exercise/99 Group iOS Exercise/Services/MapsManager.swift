@@ -10,8 +10,6 @@ import Factory
 import MapKit
 protocol MapsManagerProtocol {
     func openMaps(latitude: Double, longitude: Double)
-    func canOpenAppleMaps() -> Bool
-    func canOpenGoogleMaps() -> Bool
 }
 
 class MapsManager: MapsManagerProtocol {
@@ -31,12 +29,12 @@ class MapsManager: MapsManagerProtocol {
         }
     }
     
-    func canOpenAppleMaps() -> Bool {
+    private func canOpenAppleMaps() -> Bool {
         guard let url = URL(string: "maps://") else { return false }
         return application.canOpenURL(url)
     }
     
-    func canOpenGoogleMaps() -> Bool {
+    private func canOpenGoogleMaps() -> Bool {
         guard let url = URL(string: "comgooglemaps://") else { return false }
         return application.canOpenURL(url)
     }
