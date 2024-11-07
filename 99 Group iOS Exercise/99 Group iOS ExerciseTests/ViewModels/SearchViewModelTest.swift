@@ -38,4 +38,18 @@ class SearchViewModelTest: XCTestCase {
         XCTAssertEqual(sut.properties.count, 1, "There should be 1 property in the list")
         XCTAssertEqual(sut.properties.first?.projectName, "Mock Project Name", "The first property's projectName should match mock data")
     }
+    
+    func testFetchPropertiesFailed() async {
+        // Given
+        let mockAPIManager = MockAPIManager()
+        Container.shared.apiManager.register { mockAPIManager }
+        sut = SearchViewModel()
+        
+        // When
+        
+        // Then
+        XCTAssertTrue(sut.properties.isEmpty, "Properties list should be empty on failure")
+        XCTAssertEqual(sut.properties.count, 0, "There should be 0 property in the list")
+    }
+
 }

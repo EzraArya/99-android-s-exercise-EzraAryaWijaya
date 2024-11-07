@@ -72,6 +72,7 @@ final class DetailViewModelTest: XCTestCase {
         
         sut = DetailViewModel(id: 1)
         
+        // When
         sut.openMap()
         
         // Then
