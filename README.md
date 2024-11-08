@@ -13,6 +13,9 @@ pod install
 ```
 3. Run the project using the generated `.xcworkspace`
 
+# IPA File
+The IPA file for the assignment can be accessed in this link: [IPA](https://drive.google.com/file/d/1miYxuZKyCJ-7Amz_Y3FVk2DwGl010Ry4/view?usp=sharing)
+
 # Team 99 - Mobile Exercise (Android iOS)
 ​
 This is a fun exercise/challenge to help us assess the skill of candidates interested in joining the engineering team at 99.co. If you would like to attempt it, create your own fork and starting coding away!
